@@ -390,20 +390,55 @@ SinglyList<T> SinglyList<T>::remove(int i, int n)
 template <class T>
 void SinglyList<T>::replaceAll(SinglyList<T> &pattern, SinglyList<T> &list)
 {   
-    if (pattern.count() != list.count()) return;
+   
+    Node<T> *remember = this->head;
+    Node<T> *current = this->head->next;
 
-    Node<T> *rear = pattern.head;
-    Node<T> *replace = list.head;
+    Node<T> *rear = pattern.head->next;
 
-    while (rear->next)
+    Node<T> *replace = list.head->next;
+    
+
+    while (current)
     {
-
-        if (Node<T> *find = this->search(rear->next->data))
+        if (current->data == rear->data)
         {
-            find->next->data = replace->next->data;
+            current = current->next;
+            rear = rear->next;
         }
 
-        rear = rear->next;
-        replace = replace->next;
+        else //比较两元素不等
+        {   
+
+            remember = remember->next;//remember指针往后移动
+            rear = pattern.head->next;//pattern链表指针回到第一个元素
+            current = remember->next;
+        }
+
+        if (!rear)//找到匹配的啦
+        {   
+            current = remember;
+            rear = pattern.head->next;//rear指向pattern第一个元素
+
+            while (rear) //current指针不动 ，删除 pattern长度的元素
+            {
+                Node<T> *temp = current->next;
+                current->next = current->next->next;
+                delete temp;
+                rear = rear->next;
+            }
+
+            while (replace) //给删除部分添加元素
+            {
+                current->next = new Node<T>(replace->data, current->next);
+                current = current->next;
+                replace = replace->next;
+            }
+
+            remember = current;//移动remember指针到current指针的位置
+            current = current->next;//current移动到remember指针后一位
+            replace = list.head->next;//指针归位
+            rear = pattern.head->next;//指针归位
+        }
     }
 }

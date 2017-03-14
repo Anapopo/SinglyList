@@ -63,20 +63,21 @@ void testg()
 
 void testh()
 {
-    string person1[] = { "Anapopo", "Angus", "Aoso", "Aodoso", "Soit" };
+    char raw1[] = { 'A', 'B', 'C', 'D', 'E', 'B', 'C'};
     
-    string pattern[] = { "Angus", "Aodoso", "Soit"};
+    char pattern1[] = { 'B', 'C'};
 
-    string replace[] = { "Jebo","Nick", "Doubi"};
+    char replace1[] = { 'f', 'g', 'h'};
 
 
-    SinglyList<string> list1(person1, 5);
-    SinglyList<string> list2(pattern, 3);
-    SinglyList<string> list3(replace, 3);
+    SinglyList<char> raw(raw1, 7);
+    SinglyList<char> pattern(pattern1, 2);
+    SinglyList<char> replace(replace1, 3);
 
-    list1.replaceAll(list2, list3);
+    raw.replaceAll(pattern,replace);
 
-    list1.printAll();
+    raw.printAll();
+
     
 }
 
