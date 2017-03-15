@@ -110,14 +110,15 @@ int SinglyList<T>::count()
 //获取元素
 template <class T>
 T& SinglyList<T>::get(int i)
-{
-	Node<T> *p = this->head->next;
-	for (int j = 0; p != nullptr && j < i; j++) {
-		p = p->next;
-	}
-	if (i >= 0 && p != nullptr) {
-		return p->data;
-	}
+{   
+
+    if (i < 0) i = 0;//提高容错
+	Node<T> *current = this->head->next;
+
+	for (int j = 0; current != nullptr && j < i; j++) current = current->next;
+	
+	if (current) return current->data;
+	
 	throw std::out_of_range("Your get() function can not find the specify element.");
 }
 //插入元素
@@ -125,28 +126,28 @@ template <class T>
 Node<T>* SinglyList<T>::insert(int i, T x)
 {
 	Node<T> *front = this->head;
-	for (int j = 0; front->next != nullptr && j < i; j++)
-		front = front->next;
+	for (int j = 0; front->next != nullptr && j < i; j++) front = front->next;
+
 	front->next = new Node<T>(x, front->next);
 	return front->next;
 }
 //尾部插入元素
 template <class T>
 Node<T>* SinglyList<T>::insert(T x){
-	Node<T> *front;
-	for (front = this->head; front->next != nullptr; front = front->next);
+	Node<T> *front = this->head;
+
+    while (front->next) front = front->next;
+
 	front->next = new Node<T>(x);
+
 	return front->next;
 }
 //设定元素
 template <class T>
 void SinglyList<T>::set(int i, T x) {
 	Node<T> *front = this->head;
-	for (int j = 0;front->next != nullptr && j < i; j++) {
-		front = front->next;
-	}
-	Node<T> *current = front->next;
-	current->data = x;
+	for (int j = 0;front->next != nullptr && j < i; j++) front = front->next;//指向第(i-1)位元素
+	front->next->data = x;//给第i位元素赋值x
 }
 //查找元素 返回找到的元素的前一结点
 template<class T>
@@ -163,28 +164,32 @@ template <class T>
 void SinglyList<T>::printAll()
 {
 	std::cout << "(";
-	if (this->head->next != nullptr)
-	{
-		for (Node<T> *p = this->head->next; p != NULL; p = p->next)
-		{
-			std::cout << p->data;
-			if (p->next != NULL) std::cout << ",";
-		}
-	}
-	std::cout << ")length:" << this->count() << std::endl;
+    Node<T> *front = this->head;
+
+    while (front->next)
+    {
+        std::cout << front->next->data;
+        if (front->next->next) std::cout << ",";
+
+        front = front->next;
+    }
+    std::cout << ")length:" << this->count() << std::endl;
+
 }
 //移除指定元素
 template <class T>
 T SinglyList<T>::remove(int i)
-{
+{   
 	Node<T> *front = this->head;
-	for (int j = 0; front->next != NULL&&j<i; j++)
-		front = front->next;
-	if (i >= 0 && front->next != NULL) {
-		Node<T> *current = front->next;
-		T old = current->data;
-		front->next = current->next;
-		delete current;
+
+	for (int j = 0; front->next && j < i; j++) front = front->next;
+
+	if (i >= 0 && front->next)
+    {   
+        Node<T> *temp = front->next;
+		T old = front->next->data;
+		front->next = front->next->next;
+		delete temp;
 		return old;
 	}
 	throw std::out_of_range("Your get() function can not find the specify element.");
@@ -193,11 +198,11 @@ T SinglyList<T>::remove(int i)
 template <class T>
 void SinglyList<T>::removeAll()
 {
-	Node<T>* current = this->head->next;
-	while (current)
+	Node<T>* front = this->head;
+	while (front->next)
 	{
-		Node<T>* temp = current;
-		current = current->next;
+		Node<T>* temp = front->next;
+        front->next = front->next->next;
 		delete temp;
 	}
 
@@ -206,18 +211,41 @@ void SinglyList<T>::removeAll()
 //删除*this中所有与pattern匹配的子表，包含模式匹配
 template <class T>
 void SinglyList<T>::removeAll(SinglyList<T> &pattern)
-{
-    Node<T> *rear;
-    Node<T> *front = pattern.head;
-    while (front->next)
+{   
+    Node<T> *remember = this->head;
+    Node<T> *current = this->head->next;
+    Node<T> *rear = pattern.head->next;
+
+    while (current)
     {
-        if (rear = this->search(front->next->data)) //rear指向（找到的元素）的前一位
-        {   
-            Node<T> *temp = rear->next;
-            rear->next = rear->next->next;
-            delete temp;//移除rear的下一个节点
+        if (current->data == rear->data)
+        {
+            rear = rear->next;
+            current = current->next;
         }
-        front = front->next;
+        else
+        {
+            remember = remember->next;//remember指针往后移动
+            rear = pattern.head->next;//rear归位
+            current = remember->next;
+        }
+
+        if (!rear)//找到匹配的啦
+        {
+            current = remember;
+            rear = pattern.head->next;
+
+            while (rear)
+            {
+                Node<T> *temp = current->next;
+                current->next = current->next->next;
+                delete temp;
+                rear = rear->next;
+            }
+
+            current = current->next;//current移动到下一位
+            rear = pattern.head->next;//rear指针归位
+        }
     }
 }
 //单链表连接（清空被连接的表）
@@ -364,7 +392,7 @@ SinglyList<T> SinglyList<T>::operator+(SinglyList<T> &list)
 }
 //返回删除的从第i个结点开始、长度为n子表
 template <class T>
-SinglyList<T> SinglyList<T>::remove(int i, int n)
+SinglyList<T> SinglyList<T>::remove(int i, int n)//todo
 {
     SinglyList<T> list;//新建一个新的链表
     Node<T> *front = this->head;//front指针指向头节点
