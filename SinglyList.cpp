@@ -61,7 +61,7 @@ void test_remove()
     string person[] = { "Anapopo", "Angus", "Aoso", "Aodoso", "Soit" };
     SinglyList<string> list1(person, 5);
 
-    SinglyList<string> list2 = list1.remove(1,2);
+    SinglyList<string> list2 = list1.remove(2,2);
     list1.printAll();
     list2.printAll();
 }
@@ -99,23 +99,24 @@ void josephus(int num, int start, int distance)
     int i = start;
     while (list.count() > 1) {
         i = (i + distance - 1) % list.count();
-        cout << list.get(i) << " is killed. These People survive:";
-        list.remove(i);
+        cout << "i:" << i << " ";
+        cout << list.remove(i) << " is killed. These People survive:";
+        
         list.printAll();
     }
 }
 
 int main()
 {   
-    test_compare();//2-1
-    test_contain();//2-2
-    test_sub();//2-3
-    test_insert();//2-4
-    test_plus();//2-5
+    //test_compare();//2-1
+    //test_contain();//2-2
+    //test_sub();//2-3
+    //test_insert();//2-4
+    //test_plus();//2-5
     test_remove();//2-6
-    test_removeAll();//2-12
-    test_replaceAll();//2-13
-    josephus(5,0,2);//2-14
+    //test_removeAll();//2-12
+    //test_replaceAll();//2-13
+    //josephus(5,0,2);//2-14
     return 0;
 }
 

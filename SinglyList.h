@@ -291,7 +291,7 @@ bool SinglyList<T>::operator==(SinglyList<T> &list)
 		q = q->next;
 	}
 
-	return (p == nullptr && q == nullptr) ? true : false;
+	return (!p && !q) ? true : false;
 }
 //判断两条单链表是否不等
 template <class T>
@@ -400,18 +400,22 @@ SinglyList<T> SinglyList<T>::remove(int i, int n)//todo
 
     Node<T> *rear = list.head;//rear指针指向新链表的头结点
 
-    while (n)//当n不等于0时执行
+    rear->next = front->next;
+
+    Node<T> *temp = front;
+
+    while (n)
     {
-        rear->next = new Node<T>(front->next->data);//给新链表接上新的结点
-
-        rear = rear->next;//rear指针往后推
-
-        Node<T> *temp = front->next;//temp指向第i个元素的内存地址
-        front->next = front->next->next;//front->next指向第(i+1)个元素的内存地址
-        delete temp;//删除原来的第i个元素
-
-        n--;//要操作的结点数减一
+        front = front->next;
+        n--;
     }
+
+    rear->next = temp->next;
+
+    temp->next = front->next;
+
+    front->next = nullptr;
+
     return list;
 }
 //将*this中所有与pattern匹配子表替换为list，包含模式匹配
