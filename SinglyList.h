@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Node.h"
+using namespace std;
 template <class T>
 class SinglyList
 {
@@ -43,9 +44,9 @@ public:
     SinglyList<T> operator+(SinglyList<T> &list);
     //2-6
     SinglyList<T> remove(int i, int n);
-    //2-12 ¡ï¡ï
+    //2-12 ï¿½ï¿½ï¿½
     void removeAll(SinglyList<T> &pattern);
-    //2-13 ¡ï¡ï¡ï
+    //2-13 ï¿½ï¿½ï¿½ï¿½
     void replaceAll(SinglyList<T> &pattern, SinglyList<T> &list);
 
 	bool operator!=(SinglyList<T> &list);
@@ -53,13 +54,13 @@ public:
 	
 };
 
-//¹¹Ôìº¯Êý
+//ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
 template <class T>
 SinglyList<T>::SinglyList()
 { 
 	this->head = new Node<T>();
 }
-//¹¹Ôìº¯Êý
+//ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
 template <class T>
 SinglyList<T>::SinglyList(T values[], int n)
 {
@@ -70,7 +71,7 @@ SinglyList<T>::SinglyList(T values[], int n)
 		rear = rear->next;
 	}
 }
-//¸´ÖÆ¹¹Ôìº¯Êý
+//ï¿½ï¿½ï¿½Æ¹ï¿½ï¿½ìº¯ï¿½ï¿½
 template <class T>
 SinglyList<T>::SinglyList(SinglyList<T> &list) {
 	this->head = new Node<T>();
@@ -84,17 +85,17 @@ SinglyList<T>::SinglyList(SinglyList<T> &list) {
 		other = other->next;
 	}
 }
-//Îö¹¹º¯Êý
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 template <class T>
 SinglyList<T>::~SinglyList() 
 {
 	this->removeAll();
 	delete this->head;
 }
-//ÅÐ¶ÏÊÇ·ñ¿Õ
+//ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½
 template <class T>
 bool SinglyList<T>::empty() { return (this->head->next == nullptr); }
-//»ñÈ¡Á´±í³¤¶È
+//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 template <class T>
 int SinglyList<T>::count()
 {   
@@ -103,16 +104,16 @@ int SinglyList<T>::count()
     while (start->next)
     {   
         count++;
-        start = start->next;//¶¨Î»µ½×îºóÒ»Î»ÔªËØ
+        start = start->next;//ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Î»Ôªï¿½ï¿½
     }
     return count;
 }
-//»ñÈ¡ÔªËØ
+//ï¿½ï¿½È¡Ôªï¿½ï¿½
 template <class T>
 T& SinglyList<T>::get(int i)
 {   
 
-    if (i < 0) i = 0;//Ìá¸ßÈÝ´í
+    if (i < 0) i = 0;//ï¿½ï¿½ï¿½ï¿½Ý´ï¿½
 	Node<T> *current = this->head->next;
 
 	for (int j = 0; current != nullptr && j < i; j++) current = current->next;
@@ -121,7 +122,7 @@ T& SinglyList<T>::get(int i)
 	
 	throw std::out_of_range("Your get() function can not find the specify element.");
 }
-//²åÈëÔªËØ
+//ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
 template <class T>
 Node<T>* SinglyList<T>::insert(int i, T x)
 {
@@ -131,7 +132,7 @@ Node<T>* SinglyList<T>::insert(int i, T x)
 	front->next = new Node<T>(x, front->next);
 	return front->next;
 }
-//Î²²¿²åÈëÔªËØ
+//Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
 template <class T>
 Node<T>* SinglyList<T>::insert(T x){
 	Node<T> *front = this->head;
@@ -142,14 +143,14 @@ Node<T>* SinglyList<T>::insert(T x){
 
 	return front->next;
 }
-//Éè¶¨ÔªËØ
+//ï¿½è¶¨Ôªï¿½ï¿½
 template <class T>
 void SinglyList<T>::set(int i, T x) {
 	Node<T> *front = this->head;
-	for (int j = 0;front->next != nullptr && j < i; j++) front = front->next;//Ö¸ÏòµÚ(i-1)Î»ÔªËØ
-	front->next->data = x;//¸øµÚiÎ»ÔªËØ¸³Öµx
+	for (int j = 0;front->next != nullptr && j < i; j++) front = front->next;//Ö¸ï¿½ï¿½ï¿½(i-1)Î»Ôªï¿½ï¿½
+	front->next->data = x;//ï¿½ï¿½ï¿½ï¿½iÎ»Ôªï¿½Ø¸ï¿½Öµx
 }
-//²éÕÒÔªËØ ·µ»ØÕÒµ½µÄÔªËØµÄÇ°Ò»½áµã
+//ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Ôªï¿½Øµï¿½Ç°Ò»ï¿½ï¿½ï¿½
 template<class T>
 Node<T>* SinglyList<T>::search(T value)
 {
@@ -159,7 +160,7 @@ Node<T>* SinglyList<T>::search(T value)
 
 	return (front->next && front->next->data == value) ? front : nullptr;
 }
-//´òÓ¡ËùÓÐÔªËØ
+//ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
 template <class T>
 void SinglyList<T>::printAll()
 {
@@ -176,7 +177,7 @@ void SinglyList<T>::printAll()
     std::cout << ")length:" << this->count() << std::endl;
 
 }
-//ÒÆ³ýÖ¸¶¨ÔªËØ
+//ï¿½Æ³ï¿½Ö¸ï¿½ï¿½Ôªï¿½ï¿½
 template <class T>
 T SinglyList<T>::remove(int i)
 {   
@@ -194,7 +195,7 @@ T SinglyList<T>::remove(int i)
 	}
 	throw std::out_of_range("Your get() function can not find the specify element.");
 }
-//ÒÆ³ýËùÓÐÔªËØ
+//ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
 template <class T>
 void SinglyList<T>::removeAll()
 {
@@ -208,7 +209,7 @@ void SinglyList<T>::removeAll()
 
 	this->head->next = nullptr;
 }
-//É¾³ý*thisÖÐËùÓÐÓëpatternÆ¥ÅäµÄ×Ó±í£¬°üº¬Ä£Ê½Æ¥Åä
+//É¾ï¿½ï¿½*thisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½patternÆ¥ï¿½ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Æ¥ï¿½ï¿½
 template <class T>
 void SinglyList<T>::removeAll(SinglyList<T> &pattern)
 {   
@@ -225,12 +226,12 @@ void SinglyList<T>::removeAll(SinglyList<T> &pattern)
         }
         else
         {
-            remember = remember->next;//rememberÖ¸ÕëÍùºóÒÆ¶¯
-            rear = pattern.head->next;//rear¹éÎ»
+            remember = remember->next;//rememberÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+            rear = pattern.head->next;//rearï¿½ï¿½Î»
             current = remember->next;
         }
 
-        if (!rear)//ÕÒµ½Æ¥ÅäµÄÀ²
+        if (!rear)//ï¿½Òµï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             current = remember;
             rear = pattern.head->next;
@@ -243,12 +244,12 @@ void SinglyList<T>::removeAll(SinglyList<T> &pattern)
                 rear = rear->next;
             }
 
-            current = current->next;//currentÒÆ¶¯µ½ÏÂÒ»Î»
-            rear = pattern.head->next;//rearÖ¸Õë¹éÎ»
+            current = current->next;//currentï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Î»
+            rear = pattern.head->next;//rearÖ¸ï¿½ï¿½ï¿½Î»
         }
     }
 }
-//µ¥Á´±íÁ¬½Ó£¨Çå¿Õ±»Á¬½ÓµÄ±í£©
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½ï¿½ÓµÄ±ï¿½
 template<class T>
 void SinglyList<T>::operator+=(SinglyList<T> &list) {
 
@@ -259,7 +260,7 @@ void SinglyList<T>::operator+=(SinglyList<T> &list) {
 	list.head->next = nullptr;
 
 }
-//ÖØÔØ=µÄº¯Êý
+//ï¿½ï¿½ï¿½ï¿½=ï¿½Äºï¿½ï¿½ï¿½
 template <class T>
 void SinglyList<T>::operator=(SinglyList<T> &list)
 {
@@ -276,7 +277,7 @@ void SinglyList<T>::operator=(SinglyList<T> &list)
 		other = other->next;
 	}
 }
-//ÅÐ¶ÏÁ½Ìõµ¥Á´±íÊÇ·ñÏàµÈ
+//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
 template <class T>
 bool SinglyList<T>::operator==(SinglyList<T> &list)
 {
@@ -293,7 +294,7 @@ bool SinglyList<T>::operator==(SinglyList<T> &list)
 
 	return (!p && !q) ? true : false;
 }
-//ÅÐ¶ÏÁ½Ìõµ¥Á´±íÊÇ·ñ²»µÈ
+//ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ñ²»µï¿½
 template <class T>
 bool SinglyList<T>::operator!=(SinglyList<T> &list)
 {
@@ -310,7 +311,7 @@ bool SinglyList<T>::operator!=(SinglyList<T> &list)
 
 	return (p == nullptr && q == nullptr) ? false : true;
 }
-//ÅÐ¶Ï*thisÊÇ·ñ°üº¬listµÄËùÓÐ½áµã
+//ï¿½Ð¶ï¿½*thisï¿½Ç·ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½
 template <class T>
 bool SinglyList<T>::contain(SinglyList<T> &list)
 {   
@@ -322,17 +323,17 @@ bool SinglyList<T>::contain(SinglyList<T> &list)
     }
     return true;
 }
-//·µ»Ø´ÓµÚi¸ö½áµã¿ªÊ¼¡¢³¤¶ÈÎªnµÄ×Ó±í
+//ï¿½ï¿½ï¿½Ø´Óµï¿½iï¿½ï¿½ï¿½ï¿½ã¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªnï¿½ï¿½ï¿½Ó±ï¿½
 template <class T>
 SinglyList<T> SinglyList<T>::sub(int i, int n)
 {   
-    SinglyList<T> list;//ÐÂ½¨Ò»¸öÐÂÁ´±í
+    SinglyList<T> list;//ï¿½Â½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     int length = this->count();
-    if (i < 0 || i >= length) return list;//Ìá¸ßÈÝ´íÐÔ
-    if ((length - i) < n) n = (length - i);//Ìá¸ßÈÝ´íÐÔ
+    if (i < 0 || i >= length) return list;//ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½
+    if ((length - i) < n) n = (length - i);//ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ï¿½
 
     Node<T> *start = this->head->next;
-    for (int j = 0; start != nullptr && j < i; j++) start = start->next;//¶¨Î»µ½µÚi¸öÔªËØ
+    for (int j = 0; start != nullptr && j < i; j++) start = start->next;//ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½Ôªï¿½ï¿½
     
     Node<T> *rear = list.head;
 
@@ -345,7 +346,7 @@ SinglyList<T> SinglyList<T>::sub(int i, int n)
     }
     return list;
 }
-//·µ»Ø¸´ÖÆµÄ*this£¬²¢ÔÚÆäµÚi¸ö½áµãÇ°²åÈëlistµÄËùÓÐ½áµã£¬²»¸Ä±ä*thisºÍlist
+//ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Æµï¿½*thisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ã£¬ï¿½ï¿½ï¿½Ä±ï¿½*thisï¿½ï¿½list
 template <class T>
 SinglyList<T> SinglyList<T>::insert(int i, SinglyList<T> &list)
 {   
@@ -355,34 +356,34 @@ SinglyList<T> SinglyList<T>::insert(int i, SinglyList<T> &list)
     Node<T> *start = raw.head;
     if (i > 0 && start->next != nullptr) {
         for (int j = 0; start != nullptr && j < i; j++) 
-            start = start->next;//¢Ùstart = µÚ(i-1)¸öÔªËØµÄÄÚ´æµØÖ·
+            start = start->next;//ï¿½ï¿½start = ï¿½ï¿½(i-1)ï¿½ï¿½Ôªï¿½Øµï¿½ï¿½Ú´ï¿½ï¿½Ö·
     }
-    Node<T> *temp = start->next;//¢Útemp = µÚi¸öÔªËØµÄÄÚ´æµØÖ·
+    Node<T> *temp = start->next;//ï¿½ï¿½temp = ï¿½ï¿½iï¿½ï¿½Ôªï¿½Øµï¿½ï¿½Ú´ï¿½ï¿½Ö·
 
-    start->next = extra.head->next;//¢Û½ÓÈëÐÂÁ´±í
+    start->next = extra.head->next;//ï¿½Û½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    extra.head->next = nullptr;//¢ÜÊÍ·ÅextraÁ´±íÖ¸Õë
+    extra.head->next = nullptr;//ï¿½ï¿½ï¿½Í·ï¿½extraï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 
     Node<T> *p = start->next;
     while (p->next) p = p->next;
-    p->next = temp;//¢Ý¸øÐÂ½ÓÈëµÄÁ´±íÊÕÎ²
+    p->next = temp;//ï¿½Ý¸ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²
 
     return raw;
 }
-//·µ»ØÔÚ*this×îºóÌí¼ÓlistÖÐËùÓÐ½áµãµÄÁ´±í£¬²¢¼¯
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*thisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 template <class T>
 SinglyList<T> SinglyList<T>::operator+(SinglyList<T> &list)
 {
     SinglyList<T> raw(*this);
   
     Node<T> *rear = raw.head;
-    while (rear->next) rear = rear->next;//rear¶¨Î»µ½×îºóÒ»¸öÔªËØ
+    while (rear->next) rear = rear->next;//rearï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
 
     Node<T> *current = list.head;
 
     while (current->next) {
 
-        if (!raw.search(current->next->data)) {//Èç¹û²»´æÔÚ´ËÔªËØ
+        if (!raw.search(current->next->data)) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Ôªï¿½ï¿½
             rear->next = new Node<T>(current->next->data);
             rear = rear->next;
         }
@@ -390,15 +391,15 @@ SinglyList<T> SinglyList<T>::operator+(SinglyList<T> &list)
     }
     return raw;
 }
-//·µ»ØÉ¾³ýµÄ´ÓµÚi¸ö½áµã¿ªÊ¼¡¢³¤¶ÈÎªn×Ó±í
+//ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Ä´Óµï¿½iï¿½ï¿½ï¿½ï¿½ã¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªnï¿½Ó±ï¿½
 template <class T>
 SinglyList<T> SinglyList<T>::remove(int i, int n)//todo
 {
-    SinglyList<T> list;//ÐÂ½¨Ò»¸öÐÂµÄÁ´±í
-    Node<T> *front = this->head;//frontÖ¸ÕëÖ¸ÏòÍ·½Úµã
-    for (int j = 0; front != nullptr && j < i; j++) front = front->next;//frontÖ¸Õë¶¨Î»µ½µÚ(i-1)¸öÔªËØ
+    SinglyList<T> list;//ï¿½Â½ï¿½Ò»ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
+    Node<T> *front = this->head;//frontÖ¸ï¿½ï¿½Ö¸ï¿½ï¿½Í·ï¿½Úµï¿½
+    for (int j = 0; front != nullptr && j < i; j++) front = front->next;//frontÖ¸ï¿½ë¶¨Î»ï¿½ï¿½ï¿½ï¿½(i-1)ï¿½ï¿½Ôªï¿½ï¿½
 
-    Node<T> *rear = list.head;//rearÖ¸ÕëÖ¸ÏòÐÂÁ´±íµÄÍ·½áµã
+    Node<T> *rear = list.head;//rearÖ¸ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½
 
     rear->next = front->next;
 
@@ -418,7 +419,7 @@ SinglyList<T> SinglyList<T>::remove(int i, int n)//todo
 
     return list;
 }
-//½«*thisÖÐËùÓÐÓëpatternÆ¥Åä×Ó±íÌæ»»Îªlist£¬°üº¬Ä£Ê½Æ¥Åä
+//ï¿½ï¿½*thisï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½patternÆ¥ï¿½ï¿½ï¿½Ó±ï¿½ï¿½æ»»Îªlistï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½Æ¥ï¿½ï¿½
 template <class T>
 void SinglyList<T>::replaceAll(SinglyList<T> &pattern, SinglyList<T> &list)
 {   
@@ -439,20 +440,20 @@ void SinglyList<T>::replaceAll(SinglyList<T> &pattern, SinglyList<T> &list)
             rear = rear->next;
         }
 
-        else //±È½ÏÁ½ÔªËØ²»µÈ
+        else //ï¿½È½ï¿½ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½
         {   
 
-            remember = remember->next;//rememberÖ¸ÕëÍùºóÒÆ¶¯
-            rear = pattern.head->next;//patternÁ´±íÖ¸Õë»Øµ½µÚÒ»¸öÔªËØ
+            remember = remember->next;//rememberÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+            rear = pattern.head->next;//patternï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Øµï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
             current = remember->next;
         }
 
-        if (!rear)//ÕÒµ½Æ¥ÅäµÄÀ²
+        if (!rear)//ï¿½Òµï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½
         {   
             current = remember;
-            rear = pattern.head->next;//rearÖ¸ÏòpatternµÚÒ»¸öÔªËØ
+            rear = pattern.head->next;//rearÖ¸ï¿½ï¿½patternï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
 
-            while (rear) //currentÖ¸Õë²»¶¯ £¬É¾³ý pattern³¤¶ÈµÄÔªËØ
+            while (rear) //currentÖ¸ï¿½ë²»ï¿½ï¿½ ï¿½ï¿½É¾ï¿½ï¿½ patternï¿½ï¿½ï¿½Èµï¿½Ôªï¿½ï¿½
             {
                 Node<T> *temp = current->next;
                 current->next = current->next->next;
@@ -460,17 +461,17 @@ void SinglyList<T>::replaceAll(SinglyList<T> &pattern, SinglyList<T> &list)
                 rear = rear->next;
             }
 
-            while (replace) //¸øÉ¾³ý²¿·ÖÌí¼ÓÔªËØ
+            while (replace) //ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
             {
                 current->next = new Node<T>(replace->data, current->next);
                 current = current->next;
                 replace = replace->next;
             }
 
-            remember = current;//ÒÆ¶¯rememberÖ¸Õëµ½currentÖ¸ÕëµÄÎ»ÖÃ
-            current = current->next;//currentÒÆ¶¯µ½rememberÖ¸ÕëºóÒ»Î»
-            replace = list.head->next;//Ö¸Õë¹éÎ»
-            rear = pattern.head->next;//Ö¸Õë¹éÎ»
+            remember = current;//ï¿½Æ¶ï¿½rememberÖ¸ï¿½ëµ½currentÖ¸ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+            current = current->next;//currentï¿½Æ¶ï¿½ï¿½ï¿½rememberÖ¸ï¿½ï¿½ï¿½Ò»Î»
+            replace = list.head->next;//Ö¸ï¿½ï¿½ï¿½Î»
+            rear = pattern.head->next;//Ö¸ï¿½ï¿½ï¿½Î»
         }
     }
 }

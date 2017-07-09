@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include "SinglyList.h"
+
 using namespace std;
 //2-1
 void test_compare()
