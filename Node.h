@@ -1,3 +1,6 @@
+#define nullptr NULL
+
+
 template <class T>
 class Node
 {
