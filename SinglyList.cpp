@@ -19,7 +19,7 @@ void josephus(int num, int start, int distance)
 
 int main()
 {   
-    josephus(5,0,2);//2-14
+    josephus(5,0,2);
     return 0;
 }
 
